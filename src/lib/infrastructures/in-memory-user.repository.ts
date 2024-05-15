@@ -7,7 +7,7 @@ export class InMemoryUserRepository implements UserRepository {
 
   signin = async (_: { email: string, password: string }) => {
     if (this.userLoggedWith === null) {
-      return E.left(new SigninError('user not found'))
+      return E.left(new SigninError('Error while signing in'))
     }
     return E.right(this.userLoggedWith)
   }

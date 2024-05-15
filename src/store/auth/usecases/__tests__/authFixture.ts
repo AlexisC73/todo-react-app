@@ -8,15 +8,17 @@ import { signoutThunk } from '../signout-user.usecase'
 
 export const createAuthFixture = (testStateBuilderProbider = stateBuilderProvider()) => {
   const userRepository = new InMemoryUserRepository()
-  let thrownError: Error
 
   let store = createStore({
     userRepository
   })
 
   return {
-    givenSigninWillSuccessForUser: ({ user, token }: { user: { id: string, name: string }, token: string }) => {
-      userRepository.userLoggedWith = { user, token }
+    givenSigninWillSuccessForUser: (loggedUser: { user: { id: string, name: string }, token: string }) => {
+      userRepository.userLoggedWith = loggedUser
+    },
+    givenSigninWillReject: () => {
+      userRepository.userLoggedWith = null
     },
     givenUserIsLoggedIn: ({ user, token }: { user: { id: string, name: string }, token: string }) => {
       testStateBuilderProbider.setState(builder => builder.withAuthState({ user, token, loading: false }))
@@ -35,9 +37,6 @@ export const createAuthFixture = (testStateBuilderProbider = stateBuilderProvide
     },
     thenUserShouldBeLoggedOut: () => {
       expect(store.getState().auth).toEqual({ user: null, token: null, loading: false })
-    },
-    thenErrorShoulbBe: (expectedError: new () => Error) => {
-      expect(thrownError).toBeInstanceOf(expectedError)
     }
   }
 }
