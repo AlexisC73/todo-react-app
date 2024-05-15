@@ -15,4 +15,20 @@ describe('Signin usecase', () => {
 
     authFixture.thenUserShouldBeLoggedAs({ user: { id: '1', name: 'John' }, token: 'token', loading: false })
   })
+
+  test('user trying signin with empty email should stay logout', async () => {
+    authFixture.givenSigninWillSuccessForUser({ user: { id: '1', name: 'John' }, token: 'token' })
+
+    await authFixture.whenUserSignin({ email: '', password: 'password' })
+
+    authFixture.thenUserShouldBeLoggedOut()
+  })
+
+  test('user trying signin with empty password should stay logout', async () => {
+    authFixture.givenSigninWillSuccessForUser({ user: { id: '1', name: 'John' }, token: 'token' })
+
+    await authFixture.whenUserSignin({ email: 'test@test.fr', password: '' })
+
+    authFixture.thenUserShouldBeLoggedOut()
+  })
 })

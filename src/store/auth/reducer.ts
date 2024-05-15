@@ -22,6 +22,8 @@ export const authReducer = createReducer<AuthState>(
       return state
     }).addCase(loginThunk.pending, (state) => {
       state.loading = true
+    }).addCase(loginThunk.rejected, (state) => {
+      state.loading = false
     }).addCase(signoutThunk.fulfilled, (state) => {
       state = { user: null, token: null, loading: false }
       return state
