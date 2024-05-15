@@ -1,0 +1,7 @@
+import { createAppAsyncThunk } from '../../create-app-thunk'
+
+export const signoutThunk = createAppAsyncThunk('auth/signout', async (_, { extra: { userRepository }, getState }) => {
+  const token = getState().auth.token
+  if (token === null) return
+  await userRepository.signout({ token })
+})

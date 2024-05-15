@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { loginThunk } from './usecases/signin-user.usecase'
+import { signoutThunk } from './usecases/signout-user.usecase'
 
 export interface AuthState {
   user: { id: string, name: string } | null
@@ -21,6 +22,9 @@ export const authReducer = createReducer<AuthState>(
       return state
     }).addCase(loginThunk.pending, (state) => {
       state.loading = true
+    }).addCase(signoutThunk.fulfilled, (state) => {
+      state = { user: null, token: null, loading: false }
+      return state
     })
   }
 )

@@ -6,4 +6,6 @@ export class InMemoryUserRepository implements UserRepository {
   signin = async (_: { email: string, password: string }) => {
     return this.userSuccessfullyLoggedWith
   }
+
+  signout: (params: { token: string }) => Promise<void> = async () => {}
 }
