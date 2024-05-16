@@ -8,7 +8,7 @@ import { InMemoryUserRepository } from './lib/infrastructures/in-memory-user.rep
 
 const userRepository = new InMemoryUserRepository()
 
-userRepository.userSuccessfullyLoggedWith = { user: { id: '1', name: 'Alexis' }, token: 'token' }
+userRepository.userLoggedWith = { user: { id: '1', name: 'Alexis' }, token: 'token' }
 
 const store = createStore({
   userRepository

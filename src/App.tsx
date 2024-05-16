@@ -1,5 +1,5 @@
-import { logoutAction } from './store/auth/reducer'
 import { loginThunk } from './store/auth/usecases/signin-user.usecase'
+import { signoutThunk } from './store/auth/usecases/signout-user.usecase'
 import { useAppDispatch, useAppSelector } from './store/hooks'
 
 function App () {
@@ -11,7 +11,7 @@ function App () {
   }
 
   const handleLogout = () => {
-    dispatch(logoutAction())
+    dispatch(signoutThunk())
   }
 
   return (
