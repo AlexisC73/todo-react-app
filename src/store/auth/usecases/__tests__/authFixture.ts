@@ -5,6 +5,7 @@ import { type AuthState } from '../../reducer'
 import { InMemoryUserRepository } from '../../../../lib/infrastructures/in-memory-user.repository'
 import { stateBuilderProvider } from '../../../state-builder'
 import { signoutThunk } from '../signout-user.usecase'
+import { getMeThunk } from '../get-me.usecase'
 
 export const createAuthFixture = (testStateBuilderProbider = stateBuilderProvider()) => {
   const userRepository = new InMemoryUserRepository()
@@ -14,14 +15,17 @@ export const createAuthFixture = (testStateBuilderProbider = stateBuilderProvide
   })
 
   return {
-    givenSigninWillSuccessForUser: (loggedUser: { user: { id: string, name: string }, token: string }) => {
+    givenSigninWillSuccessForUser: (loggedUser: { user: { id: string, email: string } }) => {
+      userRepository.userLoggedWith = loggedUser
+    },
+    userAuthenticatedWith: (loggedUser: { user: { id: string, email: string } }) => {
       userRepository.userLoggedWith = loggedUser
     },
     givenSigninWillReject: () => {
       userRepository.userLoggedWith = null
     },
-    givenUserIsLoggedIn: ({ user, token }: { user: { id: string, name: string }, token: string }) => {
-      testStateBuilderProbider.setState(builder => builder.withAuthState({ user, token, loading: false }))
+    givenUserIsLoggedIn: ({ user }: { user: { id: string, email: string } }) => {
+      testStateBuilderProbider.setState(builder => builder.withAuthState({ user, loading: false }))
       store = createTestStore({
         userRepository
       }, testStateBuilderProbider.getState())
@@ -32,11 +36,14 @@ export const createAuthFixture = (testStateBuilderProbider = stateBuilderProvide
     whenUserSignout: async () => {
       await store.dispatch(signoutThunk())
     },
+    whenUserGetPersonnalInformations: async () => {
+      await store.dispatch(getMeThunk())
+    },
     thenUserShouldBeLoggedAs: (expectedAuthState: AuthState) => {
       expect(store.getState().auth).toEqual(expectedAuthState)
     },
     thenUserShouldBeLoggedOut: () => {
-      expect(store.getState().auth).toEqual({ user: null, token: null, loading: false })
+      expect(store.getState().auth).toEqual({ user: null, loading: false })
     }
   }
 }

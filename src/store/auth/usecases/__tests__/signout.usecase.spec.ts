@@ -9,7 +9,7 @@ describe('Signin usecase', () => {
   })
 
   test('user successfully logged in', async () => {
-    authFixture.givenUserIsLoggedIn({ user: { id: '1', name: 'John' }, token: 'token' })
+    authFixture.givenUserIsLoggedIn({ user: { id: '1', email: 'John' } })
 
     await authFixture.whenUserSignout()
 

@@ -9,9 +9,9 @@ describe('Signin usecase', () => {
   })
 
   test('user successfully logged in', async () => {
-    authFixture.givenSigninWillSuccessForUser({ user: { id: '1', email: 'John' } })
+    authFixture.userAuthenticatedWith({ user: { id: '1', email: 'John' } })
 
-    await authFixture.whenUserSignin({ email: 'test@test.fr', password: 'password' })
+    await authFixture.whenUserGetPersonnalInformations()
 
     authFixture.thenUserShouldBeLoggedAs({ user: { id: '1', email: 'John' }, loading: false })
   })
