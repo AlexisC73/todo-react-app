@@ -14,6 +14,7 @@ export class AdonisUserRepository implements UserRepository {
       body: JSON.stringify(params),
       credentials: 'include'
     })
+    if (!response.ok) return E.left(new SigninError('Invalid email or password'))
     const data = await response.json()
     return E.right({ user: { id: data.id, email: data.email } })
   }
