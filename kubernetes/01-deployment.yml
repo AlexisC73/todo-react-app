@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: alexisc73/todo-app-front:latest
+          image: alexisc73/todo-app-front:0.1
           imagePullPolicy: Always
           ports:
             - containerPort: 80
