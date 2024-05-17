@@ -31,6 +31,7 @@ function Home () {
           )}
 
           <pre>{JSON.stringify(auth)}</pre>
+          <p>Edited</p>
     </div>
   )
 }
