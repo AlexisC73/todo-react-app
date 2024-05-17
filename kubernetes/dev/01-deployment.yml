@@ -5,8 +5,7 @@ metadata:
   name: todo-app-front
   annotations:
     argocd-image-updater.argoproj.io/image-list: my-app=alexisc73/todo-app-front
-    argocd-image-updater.argoproj.io/my-app.image-name: alexisc73/todo-app-front
-    argocd-image-updater.argoproj.io/my-app.image-tag: latest
+    argocd-image-updater.argoproj.io/my-app.update-strategy: latest
 spec:
   replicas: 1
   selector:
