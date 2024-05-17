@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Get short SHA
+        id: sha
+        run: echo ::set-output name=COMMIT_SHA::$(git rev-parse --short HEAD)
+
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -27,4 +32,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/todo-app-front:latest
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/todo-app-front:${{ steps.sha.outputs.COMMIT_SHA }}
+            ${{ secrets.DOCKER_USERNAME }}/todo-app-front:latest

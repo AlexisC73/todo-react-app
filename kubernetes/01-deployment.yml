@@ -3,8 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: todo-app-front
-  annotations:
-    argocd.argoproj.io/sync-options: Replace=true, Force=true
 spec:
   replicas: 1
   selector:
