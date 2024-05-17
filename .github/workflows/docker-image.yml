@@ -11,9 +11,9 @@ jobs:
 
     steps:
 
-      - name: Get short SHA
-        id: sha
-        run: echo ::set-output name=COMMIT_SHA::$(git rev-parse --short HEAD)
+      - name: Get tag
+        id: get_tag
+        uses: dawidd6/action-get-tag@v1
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -33,5 +33,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/todo-app-front:${{ github.ref }}
+            ${{ secrets.DOCKER_USERNAME }}/todo-app-front:${{ steps.get_tag.outputs.tag }}
             ${{ secrets.DOCKER_USERNAME }}/todo-app-front:latest
