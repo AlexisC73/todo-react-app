@@ -4,9 +4,7 @@ kind: Deployment
 metadata:
   name: todo-app-front
   annotations:
-    keel.sh/policy: force
-    keel.sh/trigger: poll      
-    keel.sh/pollSchedule: "@every 10m"
+    argocd.argoproj.io/sync-options: Replace=true, Force=true
 spec:
   replicas: 1
   selector:
