@@ -33,5 +33,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/todo-app-front:${{ env.GITHUB_SHA }}
+            ${{ secrets.DOCKER_USERNAME }}/todo-app-front:${{ github.sha }}
             ${{ secrets.DOCKER_USERNAME }}/todo-app-front:latest
