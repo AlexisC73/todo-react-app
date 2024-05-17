@@ -2,14 +2,18 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '[0-9]+.[0-9]+'
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Get tag
+        id: get_tag
+        uses: dawidd6/action-get-tag@v1
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -28,6 +32,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/todo-app-front:${{ steps.get_tag.outputs.tag }}
-            ${{ secrets.DOCKER_USERNAME }}/todo-app-front:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/todo-app-front:${{ steps.get_tag.outputs.tag }}
