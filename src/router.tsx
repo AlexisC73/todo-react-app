@@ -5,7 +5,7 @@ import { AdonisUserRepository } from './lib/infrastructures/adonis-backend.repos
 import { createStore } from './store/store'
 import About from './pages/About'
 
-const userRepository = new AdonisUserRepository(import.meta.env.PROD ? 'http://nginx.alexis-comte.com/api' : 'http://localhost:3333/api')
+const userRepository = new AdonisUserRepository(import.meta.env.PROD ? 'https://todo.alexis-comte.com/api' : 'http://localhost:3333/api')
 
 export const store = createStore({
   userRepository
