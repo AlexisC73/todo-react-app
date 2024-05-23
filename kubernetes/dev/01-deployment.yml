@@ -4,7 +4,8 @@ kind: Deployment
 metadata:
   name: todo-app-front
   annotations:
-    argocd-image-updater.argoproj.io/image-list: alexisc73/todo-app-front:latest
+    argocd-image-updater.argoproj.io/image-list: todo-app=alexisc73/todo-app-front
+    argocd-image-updater.argoproj.io/todo-app.update-strategy: latest
 spec:
   replicas: 1
   selector:
