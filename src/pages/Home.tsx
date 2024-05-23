@@ -31,7 +31,7 @@ function Home () {
           )}
 
           <pre>{JSON.stringify(auth)}</pre>
-          <p>v0.1.x</p>
+          <p>v0.1.1</p>
     </div>
   )
 }
